@@ -1,21 +1,11 @@
-from flask import Flask 
+from flask import Flask, render_template
+from os import path
 
-files = ["home.html", "inner.html", "error.html"]
-
-def getPage(fileName): 
-	file = ""
-	if fileName in files: 
-		with open(fileName) as f: 
-			file = f.read() 
-		return file
-	return getPage("error.html")
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 @app.route("/")
 def main(): 
-	return getPage("home.html")
+	return render_template("index.html", name=None)
 
-@app.route("/inner")
-def next(): 
-	return getPage("inner.html")
+if __name__=="__main__":
+    app.run(host="localhost", port=8080)
